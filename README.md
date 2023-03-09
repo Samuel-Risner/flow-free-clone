@@ -5,7 +5,7 @@
   tsc -p ./tsconfig.json
  ``` 
 
-# Compile TailwindCss
+# Compile Tailwind CSS
  ```sh
   tailwindcss -i ./css/main.css -o ./css/dist/main.css
  ```

@@ -6,9 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>flow-free-clone</title>
     <link href="/css/dist/main.css" rel="stylesheet">
-    <script src="/js/index.js" defer type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/index.js" type="module" defer></script>
 </head>
-<body>
-    
+<body class="bg-neutral-800 text-white text-center">
+    <div class="fixed bottom-0 left-0" hidden>
+        here is an epik link
+    </div>
+
+    <div id="menuMain">
+        <div class="flex h-screen content-center m-auto text-4xl">
+            <div class="w-1/4 aspect-square m-auto flex bg-neutral-600 rounded-3xl">
+                <button
+                    name="goToCustomMenu"
+                    class="w-11/12 aspect-square m-auto border-8 rounded-2xl"
+                >select custom size</button>
+            </div>
+            <div class="w-1/4 aspect-square m-auto flex bg-neutral-600 rounded-3xl">
+                <button
+                    name="goToLevelMenu"
+                    class="w-11/12 aspect-square m-auto border-8 rounded-2xl"
+                >level mode</button>
+            </div>
+            <div class="w-1/4 aspect-square m-auto flex bg-neutral-600 rounded-3xl">
+                <button
+                    name="goToBuildMenu"
+                    class="w-11/12 aspect-square m-auto border-8 rounded-2xl"
+                >level builder</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menuCustom" hidden>
+        custom
+    </div>
+
+    <div id="menuLevel" hidden>level<!-- Gets filled by js. --></div>
+
+    <div id="menuBuild" hidden>
+        <div>
+            <div class="flex flex-row">
+                <div class="flex flex-col m-2">
+                    <label class="flex m-auto" for="levelBuilderWidth">width</label>
+                    <input class="flex" type="range" id="levelBuilderWidth">
+                    <div class="flex flex-row content-center">
+                        <div class="m-auto" id="levelBuilderWidthMinValue">4</div>
+                        <div class="m-auto" id="levelBuilderWidthCurrentValue">8</div>
+                        <div class="m-auto" id="levelBuilderWidthMaxValue">16</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col m-2">
+                    <label class="flex m-auto" for="levelBuilderHeight">height</label>
+                    <input class="flex" type="range" id="levelBuilderHeight">
+                    <div class="flex flex-row content-center">
+                        <div class="m-auto" id="levelBuilderHeightMinValue">4</div>
+                        <div class="m-auto" id="levelBuilderHeightCurrentValue">8</div>
+                        <div class="m-auto" id="levelBuilderHeightMaxValue">16</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col ml-2 mr-2 mt-auto mb-auto">
+                    <label class="flex" for="levelBuilderApplySize">resets the field</label>
+                    <button class="flex" id="levelBuilderApplySize">apply</button> 
+                </div>
+
+                <div id="levelBuilderColors"><!-- Gets filled by js. --></div>
+            </div>
+
+            <hr class="bg-white w-full flex">
+
+            <div id="levelBuilderField"><!-- Gets filled by js. --></div>
+        </div>
+    </div>
 </body>
 </html>
