@@ -1,5 +1,7 @@
 # flow-free-clone
 
+ Play in the browser over GitHub: https://samuel-risner.github.io/flow-free-clone/
+ 
 # How does this repo work?
  ## General
   This project is designed to be a static webpage, but still uses JavaScript modules, meaning that it isn't enough to open the entrypoint ("index.html") in your browser but you need to run a [webserver (Python Flask in this case)](#run-the-server) to fully view the page.
