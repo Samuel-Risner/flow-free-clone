@@ -6,7 +6,8 @@
   "scripts": {
     "build_tw": "tailwindcss -i ./css/main.css -o ./css/dist/main.css",
     "build_ts": "tsc -p ./tsconfig.json",
-    "watch_tw": "tailwindcss -i ./css/main.css -o ./css/dist/main.css --watch"
+    "watch_tw": "tailwindcss -i ./css/main.css -o ./css/dist/main.css --watch",
+    "watch_ts": "tsc -p ./tsconfig.json -w"
   },
   "repository": {
     "type": "git",

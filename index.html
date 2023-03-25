@@ -9,8 +9,10 @@
     <script src="./js/index.js" type="module" defer></script>
 </head>
 <body class="bg-neutral-800 text-white text-center">
-    <div class="fixed bottom-0 left-0" hidden>
-        here is an epik link
+    <div class="fixed bottom-0 left-0 text-sm">
+        <a href="https://github.com/Samuel-Risner/flow-free-clone">
+            https://github.com/Samuel-Risner/flow-free-clone
+        </a>    
     </div>
 
     <div id="menuMain">
@@ -45,13 +47,19 @@
     <div id="menuBuild" hidden>
         <div>
             <div class="flex flex-row">
+                <div class="flex flex-col ml-2 mr-2 mt-auto mb-auto border-2 border-white p-1 rounded-md h-fit">
+                    <button class="flex m-auto" name="goToMainMenu">
+                        main <br> menu
+                    </button>
+                </div>
+
                 <div class="flex flex-col m-2">
                     <label class="flex m-auto" for="levelBuilderWidth">width</label>
                     <input class="flex" type="range" id="levelBuilderWidth">
                     <div class="flex flex-row content-center">
-                        <div class="m-auto" id="levelBuilderWidthMinValue">4</div>
-                        <div class="m-auto" id="levelBuilderWidthCurrentValue">8</div>
-                        <div class="m-auto" id="levelBuilderWidthMaxValue">16</div>
+                        <label for="levelBuilderWidth" class="m-auto" id="levelBuilderWidthMinValue">4</label>
+                        <label for="levelBuilderWidth" class="m-auto" id="levelBuilderWidthCurrentValue">8</label>
+                        <label for="levelBuilderWidth" class="m-auto" id="levelBuilderWidthMaxValue">16</label>
                     </div>
                 </div>
 
@@ -59,23 +67,25 @@
                     <label class="flex m-auto" for="levelBuilderHeight">height</label>
                     <input class="flex" type="range" id="levelBuilderHeight">
                     <div class="flex flex-row content-center">
-                        <div class="m-auto" id="levelBuilderHeightMinValue">4</div>
-                        <div class="m-auto" id="levelBuilderHeightCurrentValue">8</div>
-                        <div class="m-auto" id="levelBuilderHeightMaxValue">16</div>
+                        <label for="levelBuilderHeight" class="m-auto" id="levelBuilderHeightMinValue">4</label>
+                        <label for="levelBuilderHeight" class="m-auto" id="levelBuilderHeightCurrentValue">8</label>
+                        <label for="levelBuilderHeight" class="m-auto" id="levelBuilderHeightMaxValue">16</label>
                     </div>
                 </div>
 
                 <div class="flex flex-col ml-2 mr-2 mt-auto mb-auto">
                     <label class="flex" for="levelBuilderApplySize">resets the field</label>
-                    <button class="flex" id="levelBuilderApplySize">apply</button> 
+                    <div class="flex flex-col m-auto border-2 border-white p-1 rounded-md h-fit w-fit">
+                        <button class="flex" id="levelBuilderApplySize">apply</button>
+                    </div> 
                 </div>
 
-                <div id="levelBuilderColors"><!-- Gets filled by js. --></div>
+                <div id="levelBuilderColors" class="flex m-2"><!-- Gets filled by js. --></div>
             </div>
 
             <hr class="bg-white w-full flex">
 
-            <div id="levelBuilderField"><!-- Gets filled by js. --></div>
+            <div id="levelBuilderField" class="p-4"><!-- Gets filled by js. --></div>
         </div>
     </div>
 </body>
