@@ -49,7 +49,12 @@
   npm run watch_tw
  ```
 
-# Run the server
+ ## Watch TypeScript
+ ```sh
+  npm run watch_ts
+ ```
+
+# Run the server (Windows cmd)
  Don't forget to install the Python [requirements](#create-python-virtual-environment-windows).
 
  Open your terminal in this directory, then:
