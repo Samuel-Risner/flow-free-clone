@@ -1,4 +1,6 @@
 import settings from "./../settings.js";
+import FieldTile from "./builder/field_tile.js";
+import FieldEnd from "./builder/field_end.js";
 
 class LevelBuilder {
 
@@ -15,7 +17,8 @@ class LevelBuilder {
 
     private fieldContainer: HTMLDivElement;
     private fieldTable: HTMLTableElement;
-    private field: number[][];
+    private fieldElements: HTMLTableCellElement[][];
+    private field: FieldTile[][];
 
     constructor() {
         this.widthInput = document.getElementById("levelBuilderWidth") as HTMLInputElement;
@@ -40,6 +43,7 @@ class LevelBuilder {
 
         this.fieldContainer = document.getElementById("levelBuilderField") as HTMLTableElement;
         this.fieldTable = document.createElement("table");
+        this.fieldElements = [];
         this.field = [];
 
         this.addWidthHeightValueDisplay();
@@ -79,6 +83,7 @@ class LevelBuilder {
         // Remove the old/previous field.
         this.fieldTable.remove();
         this.field = [];
+        this.fieldElements = [];
 
         // Create a new field.
 
@@ -87,19 +92,135 @@ class LevelBuilder {
         this.fieldTable.className = "border-collapse";
 
         for (let h = 0; h < this.height; h++) {
-            let tr = document.createElement("tr");
+            const tr = document.createElement("tr");
             this.fieldTable.appendChild(tr);
 
+            const fieldElementsRow: HTMLTableCellElement[] = [];
+            this.fieldElements.push(fieldElementsRow);
+
             for (let w = 0; w < this.width; w++) {
-                let td = document.createElement("td");
+                const td = document.createElement("td");
                 tr.appendChild(td);
+
                 td.textContent = `w: ${w} h: ${h}`;
                 td.className = "border border-white w-10 h-10";
+
+                fieldElementsRow.push(td);
             }
         }
 
         this.removeColors();
         this.createColors();
+        this.createFieldTiles();
+    }
+
+    private createFieldTiles() {
+        // Please note that the minimum width and height should both be at least 3.
+
+        // Create the end element. The neighbors of the end element are irrelevant.
+        const end = new FieldEnd();
+        end.setTop(end);
+        end.setBottom(end);
+        end.setLeft(end);
+        end.setRight(end);
+
+        // Fill the field list with elements, their neighbors will be set in the next steps.
+        for (let row = 0; row < this.fieldElements.length; row++) {
+            const rowElements: FieldTile[] = [];
+            this.field.push(rowElements);
+
+            for (let column = 0; column < this.fieldElements[row].length; column++) {
+                rowElements.push(new FieldTile(this.fieldElements[row][column]));
+            }
+        }
+
+        // Set the neighbors of the elements in the field list.
+
+        /**
+         * The first index of the field list.
+         */
+        let row = 0;
+        /**
+         * The second index of the field list.
+         */
+        let column = 0;
+
+        // Top left.
+        let temp: FieldTile = this.field[0][0];
+        temp.setTop(end);
+        temp.setBottom(this.field[1][0]);
+        temp.setLeft(end)
+        temp.setRight(this.field[0][1])
+
+        // Top right.
+        column = this.field[0].length - 1;
+        temp = this.field[0][column];
+        temp.setTop(end);
+        temp.setBottom(this.field[1][column]);
+        temp.setLeft(this.field[0][column - 1]);
+        temp.setRight(end);
+
+        // Bottom left.
+        temp = this.field[this.field.length - 1][0];
+        temp.setTop(this.field[this.field.length - 2][0]);
+        temp.setBottom(end);
+        temp.setLeft(end);
+        temp.setRight(this.field[this.field.length - 1][1]);
+
+        // Bottom right.
+        temp = this.field[this.field.length - 1][this.field[0].length - 1];
+        temp.setTop(this.field[this.field.length - 2][this.field[0].length - 1]);
+        temp.setBottom(end);
+        temp.setLeft(this.field[this.field.length - 1][this.field[0].length - 2]);
+        temp.setRight(end);
+
+        // Top row, excluding start and end.
+        for (let column = 1; column < this.fieldElements[0].length - 1; column++) {
+            temp = this.field[0][column];
+            temp.setTop(end);
+            temp.setBottom(this.field[1][column]);
+            temp.setLeft(this.field[0][column - 1]);
+            temp.setRight(this.field[0][column + 1]);
+        }
+
+        // Bottom row, excluding start and end.
+        for (let column = 1; column < this.fieldElements[this.field.length - 1].length - 1; column++) {
+            temp = this.field[this.field.length - 1][column];
+            temp.setTop(this.field[this.field.length - 2][column]);
+            temp.setBottom(end);
+            temp.setLeft(this.field[this.field.length - 1][column - 1]);
+            temp.setRight(this.field[this.field.length - 1][column + 1]);
+        }
+
+        // Left column, excluding top and bottom.
+        for (let row = 1; row < this.fieldElements.length - 1; row++) {
+            temp = this.field[row][0];
+            temp.setTop(this.field[row - 1][0]);
+            temp.setBottom(this.field[row + 1][0]);
+            temp.setLeft(end);
+            temp.setRight(this.field[row][1]);
+        }
+        // Right column, excluding top and bottom.
+        for (let row = 1; row < this.fieldElements.length - 1; row++) {
+            temp = this.field[row][this.field[row].length - 1];
+            temp.setTop(this.field[row - 1][this.field[row].length - 1]);
+            temp.setBottom(this.field[row + 1][this.field[row].length - 1]);
+            temp.setLeft(this.field[row][this.field[row].length - 2]);
+            temp.setRight(end);
+        }
+
+        // All the other stuff.
+        for (let row = 1; row < this.fieldElements.length - 1; row++) {
+            for (let column = 1; column < this.fieldElements[row].length - 1; column++) {
+                temp = this.field[row][column];
+                temp.setTop(this.field[row - 1][column]);
+                temp.setBottom(this.field[row + 1][column]);
+                temp.setLeft(this.field[row][column - 1]);
+                temp.setRight(this.field[row][column + 1]);
+            }
+        }
+
+        console.log(this.field);
     }
     
     /**
